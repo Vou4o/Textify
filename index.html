@@ -8,7 +8,7 @@
     <meta property="og:title" content="TEXTIFY - Интеллектуальный генератор курсовых работ">
     <meta property="og:description" content="Создавайте профессиональные курсовые работы с помощью искусственного интеллекта">
     <meta property="og:image" content="images/textify-preview.jpg">
-    <meta property="og:url" content="https://vou4o.github.io/Textify/">
+    <meta property="og:url" content="https://textify.ru/">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -55,9 +55,9 @@
             <h2 class="section-title">Как это работает</h2>
             <div class="steps">
                 <div class="step"><div class="step-number">1</div><h3>Оплатите услугу</h3><p>Перейдите к оплате курсовой работы</p></div>
-                <div class="step"><div class="step-number">2</div><h3>Введите тему</h3><p>Укажите тему курсовой и требования</p></div>
-                <div class="step"><div class="step-number">3</div><h3>Генерация текста</h3><p>Нейросеть создаст уникальный текст по вашему запросу</p></div>
-                <div class="step"><div class="step-number">4</div><h3>Скачайте результат</h3><p>Получите готовую работу в формате Word или PDF</p></div>
+                <div class="step"><div class="step-number">2</div><h3>Нажмите "Я оплатил"</h3><p>После оплаты вернитесь на сайт и подтвердите оплату</p></div>
+                <div class="step"><div class="step-number">3</div><h3>Введите тему</h3><p>Укажите тему курсовой и требования</p></div>
+                <div class="step"><div class="step-number">4</div><h3>Генерация текста</h3><p>Нейросеть создаст уникальный текст по вашему запросу</p></div>
             </div>
         </div>
     </section>
@@ -68,8 +68,9 @@
                 <div id="payment-block">
                     <h2 style="text-align:center; margin-bottom:20px;">Оплатите курсовую работу</h2>
                     <p style="text-align:center; margin-bottom:30px;">Перед созданием работы необходимо оплатить услугу.</p>
-                    <div style="display:flex; justify-content:center;">
-                        <a href="#" class="cta-button" id="pay-btn" target="_blank">Оплатить курсовую работу</a>
+                    <div style="display:flex; justify-content:center; gap:20px;">
+                        <button class="cta-button" id="pay-btn" type="button">Оплатить курсовую работу</button>
+                        <button class="cta-button cta-confirm" id="confirm-payment-btn" type="button">Я оплатил</button>
                     </div>
                 </div>
                 <form id="generate-form" style="display:none;">

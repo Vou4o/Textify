@@ -89,6 +89,12 @@ nav ul li a:hover { color: var(--secondary-color); }
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
 }
+.cta-confirm {
+    background-color: #f39c12;
+}
+.cta-confirm:hover {
+    background-color: #e67e22;
+}
 /* Преимущества */
 .features {
     padding: 5rem 0;
