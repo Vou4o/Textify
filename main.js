@@ -1,4 +1,3 @@
-// --- Переменные DOM ---
 const paymentBlock = document.getElementById('payment-block');
 const generateForm = document.getElementById('generate-form');
 const chatHistoryDiv = document.getElementById('chat-history');
@@ -20,6 +19,7 @@ const PPLX_API_KEY = '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';
 const MODEL = 'sonar-pro';
 
 const API_HISTORY_URL = '/api/history';
+const API_STATUS_URL = '/api/status';
 
 let messages = [
     {
@@ -31,13 +31,25 @@ let firstPromptIndex = 1;
 let paymentPassed = false;
 let dialogCallback = null;
 
-// --- Оплата через YooKassa ---
-payBtn.addEventListener('click', function () {
-    setTimeout(() => {
+// --- Проверка статуса оплаты ---
+async function checkPaymentStatus() {
+    const res = await fetch(API_STATUS_URL);
+    const data = await res.json();
+    paymentPassed = !!data.paid;
+    if (paymentPassed) {
         paymentBlock.style.display = 'none';
         generateForm.style.display = 'block';
-        paymentPassed = true;
-    }, 1000);
+    } else {
+        paymentBlock.style.display = 'block';
+        generateForm.style.display = 'none';
+    }
+}
+
+// --- Оплата через YooKassa ---
+payBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    // successURL должен вести на /api/set-paid, который выставит статус оплаты и редиректнет на /
+    window.location.href = 'https://yookassa.ru/my/i/aBC60S-KnGtx/l?successURL=' + encodeURIComponent(window.location.origin + '/api/set-paid');
 });
 
 // --- Загрузка истории с сервера ---
@@ -81,7 +93,7 @@ function renderChatHistory() {
     saveHistoryToServer();
 }
 
-// --- Markdown -> HTML (минимальный парсер для таблиц и списков) ---
+// --- Markdown -> HTML ---
 function markdownToHtml(md) {
     let html = md
         .replace(/&/g, '&amp;')
@@ -211,7 +223,7 @@ generateForm.addEventListener('submit', async function(e) {
     const requirements = document.getElementById('requirements').value.trim();
     let prompt = `Напиши курсовую работу на тему "${topic}".`;
     if (requirements) prompt += ` Требования: ${requirements}.`;
-    prompt += `ЧАСТЬ ПЕРВАЯ
+    prompt += ` ЧАСТЬ ПЕРВАЯ
 Запомни этот промт, и жди тему, учитывай что промт содержит 2 части: 
  Промт для пошагового создания курсовой работы
 Следуйте инструкциям внимательно и ждите подтверждения после каждого этапа.
@@ -430,4 +442,5 @@ downloadBtn.addEventListener('click', function() {
 });
 
 // --- Инициализация ---
+checkPaymentStatus();
 loadHistoryFromServer();
